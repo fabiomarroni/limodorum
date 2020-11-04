@@ -78,15 +78,12 @@ Rscript ${FUNCDIR}/functions/limodorum/10_plot_species_kraken.r \
 done
 
 #Plot fungal genera separately for LM and LS
-for SAMPLE in LS LM
-do
 Rscript ${FUNCDIR}/functions/limodorum/10a_plot_fungi_kraken.r \
 -I ${PROJDIR}/kraken_reads \
 -T ${PROJDIR}/DE/AB.txt \
 -L G \
--S ${SAMPLE} \
--O ${PROJDIR}/DE_AB/AB_${SAMPLE}_genus.png
-done
+-S FALSE \
+-O ${PROJDIR}/DE_AB/Fig_4_AB_genus.png
 
 
 #Use blast to further classify Fungi. 

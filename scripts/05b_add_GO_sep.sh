@@ -139,6 +139,11 @@ Rscript ${FUNCDIR}/functions/limodorum/13_plot_KEGG_enrich.r \
 -P ${PROJDIR}/DE_plants/KEGG_enrich_plants.txt \
 -O ${PROJDIR}/plots/KEGG_enrich_2020.png
 
+#Plot KEGG and GO enrichment (the latter with fisher test) of plants in the same panel
+Rscript ${FUNCDIR}/functions/limodorum/18_plot_GO_KEGG_enrich.r \
+-G ${PROJDIR}/DE_plants/ \
+-K ${PROJDIR}/DE_plants/KEGG_enrich_plants.txt \
+-O ${PROJDIR}/plots/Fig_2_GO_KEGG_enrich_2020.png
 
 
 
