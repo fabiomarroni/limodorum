@@ -34,15 +34,18 @@ if (is.null(opt$outfile)) {
   outfile <- opt$outfile  
   }
 
-plot_KEGG<-function(fungifile,plantfile,outfile,maxlength=25)
+plot_KEGG<-function(fungifile,plantfile,outfile,maxlength=30)
 {
 library(data.table)
 #I will not work on fungi files because we have no significantly enriched pathways
 #fungidat<-fread(fungifile,data.table=F)
 plantdat<-fread(plantfile,data.table=F)
+plantdat$OR[plantdat$OR=="Inf"]<-max(plantdat$OR[plantdat$OR!="Inf"])
 plantdat<-plantdat[plantdat$OR>1,]
 plantdat<-plantdat[plantdat$pvalue<=0.05,]
 plantdat$L2FC<-log2(plantdat$OR)
+#I remove data with low number of counts
+plantdat<-plantdat[plantdat$Path_in_DE+plantdat$Path_in_Universe>3,]
 stlen<-nchar(plantdat$KeggPath)
 spacepos<-lapply(strsplit(plantdat$KeggPath," "),nchar)
 len2space<-lapply(spacepos,cumsum)
@@ -53,9 +56,9 @@ if(stlen[aaa]<maxlength) next
 wherebreak<- whichspace[aaa]+(unlist(len2space[aaa])[whichspace[aaa]])
 substr(plantdat$KeggPath[aaa],wherebreak,wherebreak)<-"\n"
 }
-png(outfile,width=12,height=12,units="cm",res=600,type="cairo")
-par(mar=c(5,11,2,1))
-barplot(plantdat$L2FC,col="dodgerblue",horiz=T,names.arg=plantdat$KeggPath,cex.names=0.8,las=1,main="KEGG pathway",xlab="Log 2 enrichment")
+png(outfile,width=11,height=13,units="cm",res=600,type="cairo")
+par(mar=c(5,12,2,1))
+barplot(plantdat$L2FC,col="dodgerblue",horiz=T,space=0.3,names.arg=plantdat$KeggPath,cex.names=0.7,las=1,main="KEGG pathway",xlab="Log 2 enrichment")
 #mtext("Log 2 Enrichment",side=1,line=2,at=-3,cex=1.4)
 dev.off()
 browser()
