@@ -93,10 +93,10 @@ taxdat$lse<-round(100*taxdat$lse/sum(taxdat$lse),2)
 if(condition=="LM") 
 {
 #These are needed to be defined only for the first plot
-png(outfile,width=18,height=18,units="cm",res=600,type="cairo")
+png(outfile,width=17,height=17,units="cm",res=600,type="cairo")
 par(mar=c(8,4,4,2),mfrow=c(1,2))
 }
-barplot2(taxdat$x,names.arg=taxdat$V6,las=2,plot.ci=T,ci.l=taxdat$lse,ci.u=taxdat$use,ylab="Read abundance [%]",main=condition)
+barplot2(taxdat$x,names.arg=taxdat$V6,las=2,plot.ci=T,ci.l=taxdat$lse,ci.u=taxdat$use,ylab="Read abundance [%]",main=paste("Fungal genera in",condition))
 }
 dev.off()
 }
