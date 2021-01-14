@@ -63,6 +63,10 @@ done
 
 #Perform enrichment analysis and plots of CAZY terms in plants
 count=raw
+for REG in all up down no
+do
 Rscript ${FUNCDIR}/functions/limodorum/15_enrich_CAZY.r \
 -P ${PROJDIR}/DE_plants/plants_DE_${count}_GO_KEGG_path_cazy.txt \
--O ${PROJDIR}/plots/Fig_3_DE_GO_KEGG_path_cazy_enrich_2020.png
+-O ${PROJDIR}/plots/Fig_3_DE_GO_KEGG_path_cazy_enrich_2020_${REG}.png \
+-R ${REG}
+done
